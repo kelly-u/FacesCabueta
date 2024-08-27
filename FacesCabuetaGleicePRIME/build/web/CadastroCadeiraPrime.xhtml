@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:head>
+        <title>Cadastro de Cadeiras</title>
+        <ui:include src="menu.xhtml" />
+    </h:head>
+    <h:body style="background-color: wheat;">
+        
+        <p:growl/>
+        <h:form id="formCadeira">
+            <p:fieldset legend="Cadastrar Cadeira">
+                <p:panelGrid columns="3">
+                    
+                    <h:outputText value="Nome:*"/>
+                    <h:inputText value="#{cadeiraController.cadastro.nome}"
+                                 required="true" requiredMessage="O campo nome é obrigatório!"
+                                 id="txtNome"/>
+                    <p:message for="txtNome"/>
+                    
+                    <h:outputText value="Ano:*"/>
+                    <h:inputText value="#{cadeiraController.cadastro.ano}"
+                                 required="true" requiredMessage="O campo ano é obrigatório!"
+                                 id="txtAno"/>
+                    <p:message for="txtAno"/>
+                    
+                    <h:outputText value="Semestre:*"/>
+                    <h:inputText value="#{cadeiraController.cadastro.semestre}"
+                                 required="true" requiredMessage="O campo semestre é obrigatório!"
+                                 id="txtSemestre"/>
+                    <p:message for="txtSemestre"/>
+                    
+                    <h:outputText value="Descrição:*"/>
+                    <h:inputText value="#{cadeiraController.cadastro.descricao}"
+                                 required="true" requiredMessage="O campo descrição é obrigatório!"
+                                 id="txtDescricao"/>
+                    <p:message for="txtDescricao"/>
+                    
+                </p:panelGrid>
+                <p:commandButton value="Cadastrar" 
+                                 oncomplete="PF('widDialCadastro').show()"/>
+                
+                <p:commandButton value="Resetar campos" 
+                                 action="#{cadeiraController.resetarCamposCadastro()}"
+                                 ajax='false'/>
+            </p:fieldset>
+            
+            <p:dialog id="dialCadastro" visible="false"
+                      closeOnEscape="true" closable="true"
+                      resizable="false" draggable="false"
+                      modal="true" hideEffect="explode" widgetVar="widDialCadastro">
+                          
+                <h5>Deseja cadastrar esta cadeira</h5>
+                
+                <p:commandButton value="sim" 
+                                 action="#{cadeiraController.cadastrar()}" ajax="false" onclick="#{cadeiraController.resetarCamposCadastro()}"/>
+                <p:commandButton value="não" oncomplete="PF('widDialCadastro').hide()"/>
+      
+            </p:dialog>
+        </h:form>
+    </h:body>
+</html>
+

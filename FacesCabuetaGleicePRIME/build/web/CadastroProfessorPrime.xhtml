@@ -1,0 +1,64 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:head>
+        <title>Cadastro de Professores</title>
+        <ui:include src="menu.xhtml" />
+    </h:head>
+    <h:body style="background-color: wheat;">
+        
+        <p:growl/>
+        <h:form id="formProfessor">
+            <p:fieldset legend="Cadastrar Professor">
+                <p:panelGrid columns="3">
+                    
+                    <h:outputText value="Nome*:"/>
+                    <h:inputText 
+                        value="#{professorController.cadastro.nome}"
+                        required="true" requiredMessage="O campo nome é obrigatório"
+                        id="txtNome"/>
+                    <p:message for="txtNome"/>
+                    
+                    <h:outputText value="Email*:"/>
+                    <h:inputText 
+                        value="#{professorController.cadastro.email}"
+                        required="true" requiredMessage="O campo email é obrigatório"
+                        id="txtEmail"/>
+                    <p:message for="txtEmail"/>
+                    
+                    <h:outputText value="Senha*:"/>
+                    <h:inputSecret 
+                        value="#{professorController.cadastro.senha}"
+                        required="true" requiredMessage="O campo senha é obrigatório"
+                        id="txtSenha"/>
+                    <p:message for="txtSenha"/>
+                    
+                </p:panelGrid>
+                
+                <p:commandButton value="Cadastrar" 
+                                 oncomplete="PF('widDialCadastro').show()"/>
+                
+                <p:commandButton value="Resetar campos" 
+                                 action="#{professorController.resetarCamposCadastro()}"
+                                 ajax='false'/>
+                </p:fieldset>
+            
+                <p:dialog id="dialCadastro" visible="false"
+                      closeOnEscape="true" closable="true"
+                      resizable="false" draggable="false"
+                      modal="true" hideEffect="explode" widgetVar="widDialCadastro">
+                          
+                <h5>Deseja cadastrar este professor</h5>
+                
+                <p:commandButton value="sim" 
+                                 action="#{professorController.cadastrar()}" ajax="false" onclick="#{professorController.resetarCamposCadastro()}"/>
+                <p:commandButton value="não" oncomplete="PF('widDialCadastro').hide()"/>
+      
+            </p:dialog>
+        </h:form>
+    </h:body>
+</html>
+

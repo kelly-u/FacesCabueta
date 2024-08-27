@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:head>
+        <title>Editar Denúncia</title>
+        <ui:include src="menu.xhtml" />
+    </h:head>
+    <h:body style="background-color: wheat;">
+        
+        <p:growl life="4000"/>
+        <h:form id="formDenuncia">
+            <p:fieldset legend="Editar Denúncia">
+                <p:panelGrid columns="3">
+                    <h:outputText value="Data*:"/>
+                    <h:inputText value="#{denunciaController.selection.data}"
+                                 required="true" requiredMessage="O campo data é obrigatório"
+                                 id="txtData"/>
+                    <p:message for="txtData"/>
+                    
+                    <h:outputText value="Turno*:"/>
+                    <h:inputText value="#{denunciaController.selection.turno}"
+                                 required="true" requiredMessage="O campo turno é obrigatório"
+                                 id="txtTurno"/>
+                    <p:message for="txtTurno"/>
+                    
+                    <h:outputText value="Descrição do ocorrido*:"/>
+                    <h:inputText value="#{denunciaController.selection.descricaoDoOcorrido}"
+                                 required="true" requiredMessage="O campo descrição do ocorrido é obrigatório"
+                                 id="txtDescricaoDoOcorrido"/>
+                    <p:message for="txtDescricaoDoOcorrido"/>
+                    
+                </p:panelGrid>
+                <p:commandButton value="Editar" 
+                                 oncomplete="PF('widDialCadastro').show()"/>
+            </p:fieldset>
+            
+            <p:dialog id="dialCadastro" 
+                      visible="false" closeOnEscape="true"
+                      closable="true" resizable="false" draggable="false"
+                      modal="true" hideEffect="explode" widgetVar="widDialCadastro">
+                
+                <h5>Deseja editar esta denúncia</h5>
+                <p:commandButton value="sim" 
+                                 action="#{denunciaController.editar()}" 
+                                 oncomplete="PF('widDialCadastro').hide()" update='@form' onclick="#{cadeiraController.resetarCamposCadastro()}"/>
+                <p:commandButton value="não" oncomplete="PF('widDialCadastro').hide()"/>
+            </p:dialog>
+        </h:form>
+    </h:body>
+</html>
+

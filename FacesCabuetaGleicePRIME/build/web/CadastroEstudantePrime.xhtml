@@ -1,0 +1,70 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:head>
+        <title>Cadastro de Estudantes</title>
+        <ui:include src="menu.xhtml" />
+    </h:head>
+    <h:body style="background-color: wheat;">
+        
+        <p:growl/>
+        <h:form id="formEstudante">
+            <p:fieldset legend="Cadastrar Estudante">                
+                <p:panelGrid columns="3">
+                    <h:outputText value="Nome*:"/>
+                    <h:inputText 
+                        value="#{estudanteController.cadastro.nome}"
+                        required="true" requiredMessage="O campo nome é obrigatório"
+                        id="txtNome"/>
+                    <p:message for="txtNome"/>
+                    
+                    <h:outputText value="Email*:"/>
+                    <h:inputText 
+                        value="#{estudanteController.cadastro.email}"
+                        required="true" requiredMessage="O campo email é obrigatório"
+                        id="txtEmail"/>
+                    <p:message for="txtEmail"/>
+                    
+                    <h:outputText value="Senha*:"/>
+                    <h:inputSecret 
+                        value="#{estudanteController.cadastro.senha}"
+                        required="true" requiredMessage="O campo senha é obrigatório"
+                        id="txtSenha"/>
+                    <p:message for="txtSenha"/>
+                    
+                    <h:outputText value="Ano de entrada*:"/>
+                    <h:inputText 
+                        value="#{estudanteController.cadastro.anoEntrada}"
+                        required="true" requiredMessage="O campo ano de entrada é obrigatório"
+                        id="txtAnoEntrada"/>
+                    <p:message for="txtAnoEntrada"/>
+                    
+                </p:panelGrid>
+                <p:commandButton value="Cadastrar" 
+                                 oncomplete="PF('widDialCadastro').show()"/>
+                
+                <p:commandButton value="Resetar campos" 
+                                 action="#{estudanteController.resetarCamposCadastro()}"
+                                 ajax='false'/>
+            </p:fieldset>
+            
+            <p:dialog id="dialCadastro" visible="false"
+                      closeOnEscape="true" closable="true"
+                      resizable="false" draggable="false"
+                      modal="true" hideEffect="explode" widgetVar="widDialCadastro">
+                          
+                <h5>Deseja cadastrar este estudante</h5>
+                
+                <p:commandButton value="sim" 
+                                 action="#{estudanteController.cadastrar()}" ajax="false" onclick="#{estudanteController.resetarCamposCadastro()}"/>
+                <p:commandButton value="não" oncomplete="PF('widDialCadastro').hide()"/>
+      
+            </p:dialog>
+            
+        </h:form>
+    </h:body>
+</html>
+

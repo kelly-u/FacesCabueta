@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:head>
+        <title>Cadastro de Métodos de Fila</title>
+        <ui:include src="menu.xhtml" />
+    </h:head>
+    <h:body style="background-color: wheat;">
+        
+        <p:growl/>
+        <h:form id="formMetodoFila">
+            <p:fieldset legend="Cadastrar Método de Fila">
+                <p:panelGrid columns="3">
+                    
+                    <h:outputText value="Descrição Curta*:"/>
+                    <h:inputText value="#{metodoFilaController.cadastro.descricaoCurta}"
+                        required="true" requiredMessage="O campo descrição curta é obrigatório"
+                        id="txtDescricaoCurta"/>
+                    <p:message for="txtDescricaoCurta"/>
+                    
+                    <h:outputText value="Descrição Longa*:"/>
+                    <h:inputText value="#{metodoFilaController.cadastro.descricaoLonga}"
+                        required="true" requiredMessage="O campo descrição longa é obrigatório"
+                        id="txtDescricaoLonga"/>
+                    <p:message for="txtDescricaoLonga"/>
+                </p:panelGrid>
+                <p:commandButton value="Cadastrar" 
+                                 oncomplete="PF('widDialCadastro').show()"/>
+                
+                <p:commandButton value="Resetar campos" 
+                                 action="#{metodoFilaController.resetarCamposCadastro()}"
+                                 ajax='false'/>
+            </p:fieldset>
+            
+            <p:dialog id="dialCadastro" visible="false"
+                      closeOnEscape="true" closable="true"
+                      resizable="false" draggable="false"
+                      modal="true" hideEffect="explode" widgetVar="widDialCadastro">
+                          
+                <h5>Deseja cadastrar este método de fila</h5>
+                
+                <p:commandButton value="sim" 
+                                 action="#{metodoFilaController.cadastrar()}" ajax="false" onclick="#{metodoFilaController.resetarCamposCadastro()}"/>
+                <p:commandButton value="não" oncomplete="PF('widDialCadastro').hide()"/>
+      
+            </p:dialog>
+        </h:form>
+    </h:body>
+</html>
+
